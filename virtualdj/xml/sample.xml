@@ -1,0 +1,41 @@
+<VirtualDJ_Database>
+<!-- V8 -->
+ <Song FilePath="F:/dj/DANCE/CRAZY FROG-POPCORN.wma" FileSize="4646958">
+  <Tags Genre="JFBGENRE" TrackNumber="3" Year="9999" Stars="5" Flag="1" />
+  <Infos SongLength="193.607116" FirstSeen="1484404728" PlayCount="999" Bitrate="192" Cover="16386" />
+  <Comment>JFBCOMMENT</Comment>
+ </Song> 
+ <!--  V6 -->
+  <Song FilePath="C:\DJ\DANCE\CRAZY FROG-POPCORN.wma" FileSize="4646958">
+  <Display Color="9813187" Tag="2" />
+  <Infos SongLength="8486912" FirstSeen="1412221330" FirstPlay="1412221419" LastPlay="1510242234" PlayCount="3" />
+  <Comment>HIT 23</Comment>
+  <BPM Bpm="20354" Phase="11053" />
+  <FAME IsScanned="510" Volume="3638" Key="Am" />
+  <Automix TempoStart="1008209" FadeStart="8192" FadeEnd="8204288" RealStart="8192" RealEnd="8339456" />
+ </Song>
+<!-- V8 --> 
+  <Song FilePath="D:/dj/ANNEES_80/L5-MANIAC.mp3" FileSize="5967370">
+  <Tags Author="artist" Title="MANIAC; ;L5" Genre="genre" Album="album" TrackNumber="6" Flag="1" />
+  <Infos SongLength="248.555102" FirstSeen="1484404712" Bitrate="192" Cover="16385" />
+  <Scan Version="800" Bpm="0.377358" AltBpm="0.566032" Volume="1.062925" Key="A#" />
+  <Poi Pos="0.501225" Type="beatgrid" />
+  <Poi Pos="0.110295" Type="automix" Point="realStart" />
+  <Poi Pos="242.798005" Type="automix" Point="realEnd" />
+  <Poi Pos="0.092880" Type="automix" Point="fadeStart" />
+  <Poi Pos="234.428662" Type="automix" Point="fadeEnd" />
+  <Poi Pos="0.504308" Type="automix" Point="cutStart" />
+  <Poi Pos="227.295782" Type="automix" Point="cutEnd" />
+  <Poi Pos="0.506939" Type="automix" Point="tempoStart" />
+  <Poi Pos="215.215533" Type="automix" Point="tempoEnd" />
+ </Song>
+  <!--  V6 -->
+   <Song FilePath="C:\DJ\ANNEES_80\L5-MANIAC.mp3" FileSize="5967370">
+  <Display Author="L5" Title="MANIAC" Genre="genre" Album="album" Color="9754178" Cover="2" Tag="1" />
+  <Infos SongLength="10961280" FirstSeen="1412221330" FirstPlay="3192153" LastPlay="3192153" PlayCount="1" Bitrate="192" />
+  <Comment>HIT 25</Comment>
+  <BPM Bpm="16641" Phase="5516" />
+  <FAME IsScanned="510" Volume="8748" Key="Fm" />
+  <Automix MixType="3" TempoStart="5582" TempoEnd="9474355" CutStart="5632" CutEnd="10023744" FadeStart="4096" FadeEnd="10338304" RealStart="4096" RealEnd="10764288" />
+ </Song>
+ </VirtualDJ_Database>
