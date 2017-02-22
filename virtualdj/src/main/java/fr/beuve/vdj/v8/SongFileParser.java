@@ -23,8 +23,7 @@ public class SongFileParser {
 		split = split[0].split("-");
 		if(split.length>1){
 			artist = split[0];
-			//FIXME find the regexp for 1-n digits
-			if(artist.matches("[0-9] ")) {
+			if(artist.matches("\\d*")) {
 				parsed=false;
 				artist=UNKNOWN;
 			}else{

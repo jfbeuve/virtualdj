@@ -10,7 +10,7 @@ import org.junit.Test;
 public class M3uParserTest {
 	@Test
 	public void test() throws ParseException, IOException {
-		M3uParser p = new M3uParser(new File("src/test/java/fr/beuve/vdj8"));
+		M3uParser p = new M3uParser(new File("src/test/java/fr/beuve/vdj/v8"));
 		assertEquals(5, p.stars(new SongFileParser("IMAGES-LES DEMONS DE MINUIT.wav")));
 		assertEquals(4, p.stars(new SongFileParser("01 Sweat (Snoop Dogg vs. David Guett.mp3")));
 		assertEquals(3, p.stars(new SongFileParser("1-12 Titanium (feat. Sia).mp3")));
