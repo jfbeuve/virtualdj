@@ -1,17 +1,16 @@
 package fr.beuve.vdj.v8;
 
-import java.io.File;
 
 public class SongFileParser {
 	private String title, artist, style, file;
 	private int count;
 	private boolean parsed = false;
-	private static final String UNKNOWN = "unkonwn";
+	private static final String UNKNOWN = "unknown";
 	
 	public SongFileParser(String path){
 		count=1;
 		
-		String separator = File.separator;
+		String separator = "/";
 		if(path.indexOf(separator)<0) separator = "\\\\";
 		
 		String[] split = path.split(separator);
@@ -23,7 +22,7 @@ public class SongFileParser {
 		split = split[0].split("-");
 		if(split.length>1){
 			artist = split[0];
-			if(artist.matches("\\d*")) {
+			if(artist.trim().matches("\\d*")) {
 				parsed=false;
 				artist=UNKNOWN;
 			}else{

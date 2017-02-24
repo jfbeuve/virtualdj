@@ -23,10 +23,7 @@ public class SongFIleParserTest {
 		
 		// cannot rename (artist is a song number)
 		i = new SongFileParser("F:/dj/ROCK_60/1 -ROCKOLLECTION.wav");
-		assertEquals("LAURENT VOULZY",i.artist());
-		assertEquals("ROCKOLLECTION",i.title());
-		assertEquals("ROCK_60",i.style());
-		assertTrue(i.canRename());
+		assertTrue(!i.canRename());
 		
 		// cannot rename (2016 folder)
 		i = new SongFileParser("F:/dj/2016/LAURENT VOULZY-ROCKOLLECTION.wav");
@@ -41,5 +38,4 @@ public class SongFIleParserTest {
 		assertEquals("ROCKOLLECTION",i.title());
 		assertEquals("ROCK_60",i.style());
 	}
-
 }
