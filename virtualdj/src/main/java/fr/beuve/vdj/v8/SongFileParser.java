@@ -62,7 +62,7 @@ public class SongFileParser {
 		return ++count;
 	}
 	private int stars(int max){
-		//logger.debug(count+"/"+max);
+		logger.debug(count+"/"+max);
 		int stars = 5 * count / max;
 		if(stars==0) stars=1;
 		return stars;

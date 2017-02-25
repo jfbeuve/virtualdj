@@ -45,6 +45,8 @@ public class SongFIleParserTest {
 	}
 	@Test
 	public void file() {
+		assertEquals(0,"\\".indexOf("\\"));
+		assertEquals(0,"\\".indexOf('\\'));
 		assertEquals("IMAGES-LES DEMONS DE MINUIT.wav",SongFileParser.file("IMAGES-LES DEMONS DE MINUIT.wav"));
 		assertEquals("IMAGES-LES DEMONS DE MINUIT.wav",SongFileParser.file("D:/dj/ANNEES_80/IMAGES-LES DEMONS DE MINUIT.wav"));
 		assertEquals("IMAGES-LES DEMONS DE MINUIT.wav",SongFileParser.file("D:\\MUSIC\\ANNEES_80\\IMAGES-LES DEMONS DE MINUIT.wav"));
