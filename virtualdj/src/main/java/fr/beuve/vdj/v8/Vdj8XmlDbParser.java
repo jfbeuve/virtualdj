@@ -44,32 +44,32 @@ import fr.beuve.vdj.comments.SongXml;
 public class Vdj8XmlDbParser {
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	
-	protected File file;
-	protected Document xml;
+	private File file;
+	private Document xml;
 	
-	protected boolean changed=false;
-	protected Logger logger = Logger.getLogger(VDJDatabase.class);
+	private static Logger logger = Logger.getLogger(VDJDatabase.class);
 	
-	protected M3uParser playlist;
+	private M3uParser playlist;
 	
 	public static void main(String[] args) throws Exception{
-		Vdj8XmlDbParser vdj = new Vdj8XmlDbParser(new File(args[0]));
+		Vdj8XmlDbParser vdj = new Vdj8XmlDbParser(new File(args[0]),new File("m3u"));
 		vdj.load();
 		vdj.fix();
 		vdj.store();
 	}
-	protected void fix() throws XPathExpressionException, DOMException, ParseException{
+	public Document fix() throws XPathExpressionException, DOMException, ParseException, IOException{
 		NodeList list = songs();
 		for(int i=0; i<list.getLength();i++){
 			fix(list.item(i));
 		}
+		return xml;
 	}
-	private void fix(Node node) throws DOMException, ParseException{
-		//TODO fix song
+	private void fix(Node node) throws DOMException, ParseException, IOException{
+		new Vdj8XmlSongParser(node,playlist).fix();
 	}
-	public Vdj8XmlDbParser(File _file) throws ParseException, IOException{
-		file = _file;
-		playlist = new M3uParser(new File("m3u"));
+	public Vdj8XmlDbParser(File _xml, File _m3u) throws ParseException, IOException{
+		file = _xml;
+		playlist = new M3uParser(_m3u);
 	}
 	public void load() throws ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -102,10 +102,8 @@ public class Vdj8XmlDbParser {
         xformer.transform(source, result);
 	}
 	public void store() throws IOException, TransformerFactoryConfigurationError, TransformerException{
-		if(changed){
-			copy();
-			save();
-		}
+		copy();
+		save();
 	}
 	/**
 	 * Search for a given song not in Virtual DJ Database

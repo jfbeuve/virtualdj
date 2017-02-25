@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VirtualDJ_Database Version="8.2">
+ <Song FilePath="src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav" FileSize="4646958">
+  <Tags Genre="JFBGENRE" TrackNumber="3" Year="9999" Stars="5" Flag="1" />
+  <Infos SongLength="193.607116" FirstSeen="1484404728" PlayCount="999" Bitrate="192" Cover="16386" />
+  <Comment>JFBCOMMENT</Comment>
+ </Song> 
+  <Song FilePath="src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3" FileSize="5967370">
+  <Tags Author="artist" Title="MANIAC; ;L5" Genre="genre" Album="album" TrackNumber="6" Flag="1" />
+  <Infos SongLength="248.555102" FirstSeen="1484404712" Bitrate="192" Cover="16385" />
+  <Scan Version="800" Bpm="0.377358" AltBpm="0.566032" Volume="1.062925" Key="A#" />
+  <Poi Pos="0.501225" Type="beatgrid" />
+  <Poi Pos="0.110295" Type="automix" Point="realStart" />
+  <Poi Pos="242.798005" Type="automix" Point="realEnd" />
+  <Poi Pos="0.092880" Type="automix" Point="fadeStart" />
+  <Poi Pos="234.428662" Type="automix" Point="fadeEnd" />
+  <Poi Pos="0.504308" Type="automix" Point="cutStart" />
+  <Poi Pos="227.295782" Type="automix" Point="cutEnd" />
+  <Poi Pos="0.506939" Type="automix" Point="tempoStart" />
+  <Poi Pos="215.215533" Type="automix" Point="tempoEnd" />
+ </Song>
+ </VirtualDJ_Database>

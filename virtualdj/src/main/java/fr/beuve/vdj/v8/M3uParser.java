@@ -6,55 +6,77 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.text.ParseException;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 public class M3uParser {
-	private Vector<SongFileParser> history = new Vector<SongFileParser>();
+	protected Logger logger = Logger.getLogger(M3uParser.class);
+	private static M3uParser instance = null;
+	
+	public static M3uParser getInstance() throws ParseException, IOException{
+		if(instance==null) instance = new M3uParser(new File("m3u"));
+		return instance;
+	}
+	
+	private Map<String, SongFileParser> history = new HashMap<String,SongFileParser>();
 	private int maxCount = 0;
 	
 	public M3uParser(File folder) throws ParseException, IOException{
 		for (File m3u : folder.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
-				if (name.endsWith(".m3u"))
+				//logger.debug(name);
+				//if (dir.isDirectory())	return false;
+				if (name.endsWith(".m3u")){
+					//logger.debug(">> OK");
 					return true;
-				return false;
+				}else{
+					return false;
+				}
 			}
 		})) {
 			load(m3u);
 		}
+		for(SongFileParser f:history.values()){
+			logger.info(f.toString());
+		}
 	}
 
 	private void load(File m3u) throws ParseException, IOException {
+		logger.debug("> "+m3u);
 		LineNumberReader reader = new LineNumberReader(new FileReader(m3u));
 		try{
 			String line = reader.readLine();
 			while(line!=null){
-				if(!line.trim().startsWith("#")) continue;
-				if(!line.trim().equals("")) continue;
 				
-				SongFileParser song = new SongFileParser(line);
-				int index = history.indexOf(song);
-				if(index<0){ 
-					history.add(song);
-				}else{
-					int count = history.get(index).add(song);
+				boolean skip = false;
+				if(line.trim().startsWith("#")) skip = true;
+				if(line.trim().equals("")) skip = true;
+
+				if(!skip){
+					//logger.debug(line);
+					String file = SongFileParser.file(line);
+					SongFileParser song = history.get(file);
+					if(song==null){ 
+						song = new SongFileParser(line);
+						history.put(file,song);
+					}
+					int count = song.add();
 					if(count>maxCount) maxCount=count;
+					//logger.debug(file+" "+count+"/"+maxCount);
 				}
-					
+				line = reader.readLine();	
 			}
-			line = reader.readLine();
-			
 		}finally{
 			reader.close();
 		}
 	}
-
-	public int stars(SongFileParser song){
-		int index = history.indexOf(song);
-		if(index<0){ 
-			return 0;
-		}else{
-			return history.get(index).stars(maxCount);
-		}
+	public int max(){
+		return maxCount;
+	}
+	public SongFileParser get(String path){
+		String file = SongFileParser.file(path);
+		return history.get(file);
 	}
 }

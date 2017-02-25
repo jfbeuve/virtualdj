@@ -1,5 +1,8 @@
 package fr.beuve.vdj.v8;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -14,26 +17,28 @@ public class Vdj8XmlSongParser {
 	private static String YEAR = "Year";
 	private static String STARS = "Stars";
 	protected Logger logger = Logger.getLogger(Vdj8XmlSongParser.class);
+	private M3uParser history;
 	
-	public Vdj8XmlSongParser(Node _node){
+	public Vdj8XmlSongParser(Node _node, M3uParser playlist){
 		node = _node;
+		history = playlist;
+		
 		file = node.getAttributes().getNamedItem("FilePath").getNodeValue();
-		logger.debug("*** "+file+" ***");
 		display = display(node);
 		if(display!=null){
-			artist = getDisplayAttribute(AUTHOR);
-			title = getDisplayAttribute(TITLE);
-			genre = getDisplayAttribute(GENRE);
-			year =  getDisplayAttribute(YEAR);
-			stars = getDisplayAttribute(STARS);
+			artist = get(AUTHOR);
+			title = get(TITLE);
+			genre = get(GENRE);
+			year =  get(YEAR);
+			stars = get(STARS);
 		}
 	}
-	private String getDisplayAttribute(String name){
+	private String get(String name){
 		Node attr = display.getAttributes().getNamedItem(name);
 		if(attr!=null) return attr.getNodeValue();
 		return null;
 	}
-	private void setDisplayAttribute(String name, String value){
+	private void set(String name, String value){
 		Node attr = display.getAttributes().getNamedItem(name);
 		if(attr==null) {
 			attr = node.getOwnerDocument().createAttribute(name);
@@ -50,10 +55,20 @@ public class Vdj8XmlSongParser {
 		}
 		return null;
 	}
-	public boolean fix(){
-		boolean changed = false;
+	public void fix() throws ParseException, IOException{
 		SongFileParser song = new SongFileParser(file);
-		//TODO fix display attributes if required
-		return changed;
+		
+		if(!song.accept()) {
+			System.out.print(".");
+			return;
+		}
+		
+		logger.info(file);
+		set(AUTHOR,song.artist());
+		set(TITLE,song.title());
+		set(GENRE,song.style());
+		set(YEAR,song.year());
+		set(STARS,Integer.toString(song.stars(history)));
+		//TODO comment HIT/NEW ?
 	}
 }
