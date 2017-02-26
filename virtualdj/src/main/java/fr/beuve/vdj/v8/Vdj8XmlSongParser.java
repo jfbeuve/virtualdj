@@ -58,17 +58,17 @@ public class Vdj8XmlSongParser {
 	public void fix() throws ParseException, IOException{
 		SongFileParser song = new SongFileParser(file);
 		
-		if(!song.accept()) {
-			System.out.print(".");
-			return;
+		if(song.accept()) {
+			logger.info(file);
+			set(AUTHOR,song.artist());
+			set(TITLE,song.title());
+			set(GENRE,song.style());
+			set(YEAR,song.year());
+			set(STARS,Integer.toString(song.stars(history)));
+			//NOTE comment HIT/NEW ?
+		}else{
+			logger.debug(".");
 		}
 		
-		logger.info(file);
-		set(AUTHOR,song.artist());
-		set(TITLE,song.title());
-		set(GENRE,song.style());
-		set(YEAR,song.year());
-		set(STARS,Integer.toString(song.stars(history)));
-		//TODO comment HIT/NEW ?
 	}
 }

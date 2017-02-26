@@ -45,6 +45,7 @@ public class M3uParser {
 
 	private void load(File m3u) throws ParseException, IOException {
 		logger.debug("> "+m3u);
+		//FIXME input encoding ISO? UTF8?
 		LineNumberReader reader = new LineNumberReader(new FileReader(m3u));
 		try{
 			String line = reader.readLine();
@@ -53,6 +54,7 @@ public class M3uParser {
 				boolean skip = false;
 				if(line.trim().startsWith("#")) skip = true;
 				if(line.trim().equals("")) skip = true;
+				if(line.indexOf("/")<0&&line.indexOf("\\")<0) skip = true;
 
 				if(!skip){
 					//logger.debug(line);

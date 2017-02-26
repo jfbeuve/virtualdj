@@ -37,17 +37,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import fr.beuve.vdj.VDJDatabase;
-import fr.beuve.vdj.comments.Song;
-import fr.beuve.vdj.comments.SongXml;
-
 public class Vdj8XmlDbParser {
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	
 	private File file;
 	private Document xml;
 	
-	private static Logger logger = Logger.getLogger(VDJDatabase.class);
+	private static Logger logger = Logger.getLogger(Vdj8XmlDbParser.class);
 	
 	private M3uParser playlist;
 	
@@ -55,7 +51,7 @@ public class Vdj8XmlDbParser {
 		Vdj8XmlDbParser vdj = new Vdj8XmlDbParser(new File(args[0]),new File("m3u"));
 		vdj.load();
 		vdj.fix();
-		vdj.store();
+		vdj.store(false);
 	}
 	public Document fix() throws XPathExpressionException, DOMException, ParseException, IOException{
 		NodeList list = songs();
@@ -63,6 +59,14 @@ public class Vdj8XmlDbParser {
 			fix(list.item(i));
 		}
 		return xml;
+	}
+	public void store(boolean copy) throws IOException, TransformerFactoryConfigurationError, TransformerException{
+		if(copy){
+			copy();
+			save(file);
+		}else{
+			save(new File(file.getPath()+".jfb.xml"));
+		}
 	}
 	private void fix(Node node) throws DOMException, ParseException, IOException{
 		new Vdj8XmlSongParser(node,playlist).fix();
@@ -92,42 +96,20 @@ public class Vdj8XmlDbParser {
 		FileUtils.copyFile(file, copy);
 		logger.info("COPY "+file+" TO "+copy);
 	}
-	private void save() throws TransformerFactoryConfigurationError, TransformerException, IOException{
-        logger.info("SAVE "+file);
+	private void save(File target) throws TransformerFactoryConfigurationError, TransformerException, IOException{
+        //FIXME output encoding
+		logger.info("SAVE "+target);
 		Source source = new DOMSource(xml);
         Transformer xformer = TransformerFactory.newInstance().newTransformer();
         xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         xformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        Result result = new StreamResult(new FileWriter(file));
+        Result result = new StreamResult(new FileWriter(target));
         xformer.transform(source, result);
-	}
-	public void store() throws IOException, TransformerFactoryConfigurationError, TransformerException{
-		copy();
-		save();
-	}
-	/**
-	 * Search for a given song not in Virtual DJ Database
-	 */
-	public Node song(Song song) throws XPathExpressionException{
-		XPath xpath = XPathFactory.newInstance().newXPath();
-		XPathExpression expr = null;
-		String exprStr;
-
-		exprStr = "//VirtualDJ_Database/"+SongXml.SONG+"[@"+SongXml.FILEPATH+"=\""+song.fqname+"\"]";
-		
-		logger.debug("XPATH "+exprStr);
-		expr = xpath.compile(exprStr);
-		
-		Object result = expr.evaluate(xml, XPathConstants.NODESET);
-	    NodeList list = (NodeList) result;
-	    if(list.getLength()==0) return null;
-	    Node toReturn = list.item(0);
-	    return toReturn;
 	}
 	
 	public NodeList songs() throws XPathExpressionException{
 		XPath xpath = XPathFactory.newInstance().newXPath();
-		XPathExpression expr = xpath.compile("//VirtualDJ_Database/"+SongXml.SONG);
+		XPathExpression expr = xpath.compile("//VirtualDJ_Database/Song");
 	    
 		Object result = expr.evaluate(xml, XPathConstants.NODESET);
 	    NodeList list = (NodeList) result;

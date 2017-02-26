@@ -33,14 +33,14 @@ public class Vdj8XmlDbParserTest {
 		Vdj8XmlDbParser db = new Vdj8XmlDbParser(new File("src/test/java/fr/beuve/vdj/v8/db1.xml"), new File("src/test/java/fr/beuve/vdj/v8"));
 		db.load();
 		Document xml = db.fix();
-		print(node("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']",xml));
+		//print(node("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']",xml));
 		assertEquals("pop",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']/Tags/@Genre",xml));
 		assertEquals("IMAGES",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']/Tags/@Author",xml));
 		assertEquals("LES DEMONS DE MINUIT",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']/Tags/@Title",xml));
 		assertEquals("2017",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']/Tags/@Year",xml));
 		assertEquals("5",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/pop/IMAGES-LES DEMONS DE MINUIT.wav']/Tags/@Stars",xml));
 		
-		print(node("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3']",xml));
+		//print(node("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3']",xml));
 		assertEquals("rock",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3']/Tags/@Genre",xml));
 		assertEquals("L5",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3']/Tags/@Author",xml));
 		assertEquals("MANIAC",xpath("//VirtualDJ_Database/Song[@FilePath='src/test/java/fr/beuve/vdj/v8/rock/L5-MANIAC.mp3']/Tags/@Title",xml));

@@ -1,9 +1,0 @@
-<VirtualDJ_Database Version="603">
- <Song FilePath="D:\MUSIC\DANCE_90\HADDAWAY-WHAT IS LOVE.mp3" FileSize="6507920">
-  <Display Author="artist" Title="WHAT IS LOVE;HADDAWAY" Genre="genre" Album="album" Color="11177578" Cover="2082" Tag="1" />
-  <Infos SongLength="11954304" FirstSeen="1301191427" FirstPlay="1301191559" LastPlay="1301191559" PlayCount="1" Bitrate="192" />
-  <BPM Bpm="21362" Phase="16503" />
-  <FAME IsScanned="510" Volume="5721" Key="Gm" />
-  <Automix MixType="3" TempoStart="1106009" TempoEnd="10932660" CutStart="1106112" CutEnd="11594912" FadeStart="49152" FadeEnd="11726848" RealStart="45056" RealEnd="11812864" />
- </Song>
-</VirtualDJ_Database>

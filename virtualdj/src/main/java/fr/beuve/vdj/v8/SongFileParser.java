@@ -1,13 +1,17 @@
 package fr.beuve.vdj.v8;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.log4j.Logger;
 
 public class SongFileParser {
+	private static final String ROOT = "/Volumes/Mes Documents";
 	private static Logger logger = Logger.getLogger(SongFileParser.class);
 	
 	private String title, artist, style, file, path;
@@ -16,7 +20,7 @@ public class SongFileParser {
 	private static final String UNKNOWN = "unknown";
 	
 	public SongFileParser(String _path){
-		//logger.debug(_path);
+		//logger.info(_path);
 		
 		path = _path;
 		count=0;
@@ -80,11 +84,20 @@ public class SongFileParser {
 	public boolean accept(){
 		return accept;
 	}
-	public String year(){
+	public String file(){
+		return file;
+	}
+	public String year() throws IOException{
 		File f = new File(path);
+		if(path.substring(1, 6).equals(":/dj/"))
+			f = new File(ROOT+path.substring(2));
+		
+		if(!f.exists()) throw new FileNotFoundException(path);
 		long t = f.lastModified();
 		Date d = new Date(t);
-		int year = d.getYear()+1900;
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTime(d);
+		int year = cal.get(Calendar.YEAR);
 		return Integer.toString(year);
 	}
 	public static String file(String path){
